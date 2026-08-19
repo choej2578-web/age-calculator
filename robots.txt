@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://choej2578-web.github.io/age-calculator/sitemap.xml
