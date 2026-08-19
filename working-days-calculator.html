@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Working Days Calculator – Free Online Tool</title><meta name="description" content="Count weekdays between two dates, excluding Saturdays and Sundays."><style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6f8fc;color:#1f2937;line-height:1.6}
+.wrap{max-width:760px;margin:auto;padding:18px}header{text-align:center;padding:25px 5px}
+a{color:#2563eb;text-decoration:none}.card,.info{background:#fff;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 8px 26px rgba(0,0,0,.06)}
+label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:11px;font-size:16px}
+button{width:100%;border:0;margin-top:14px;padding:13px;background:#2563eb;color:#fff;border-radius:11px;font-size:16px;font-weight:700}
+.result{margin-top:15px;padding:15px;background:#eff6ff;border-radius:12px;font-weight:700;min-height:52px}
+nav{margin-bottom:18px}.ad{border:1px dashed #cbd5e1;text-align:center;padding:20px;color:#94a3b8;border-radius:14px;margin:18px 0}
+footer{text-align:center;color:#94a3b8;font-size:13px;padding:20px}.mini{font-size:13px;color:#6b7280}
+</style></head>
+<body><div class="wrap"><header><h1>Working Days Calculator</h1><p>Count weekdays between two dates, excluding Saturdays and Sundays.</p></header>
+<nav><a href="./">← All Date & Time Calculators</a></nav>
+<section class="card"><label>Start date</label><input type="date" id="a"><label>End date</label><input type="date" id="b"><button onclick="go('work')">Calculate</button><div class="result" id="result">Your result will appear here.</div></section>
+<div class="ad">Ad space – Google AdSense after approval</div>
+<section class="info"><h2>How to use this calculator</h2><p>Enter the requested date or time values above and select Calculate. The result is calculated directly in your browser.</p><p class="mini">This free tool is for general informational use. Working-day calculations exclude weekends only and do not automatically account for public holidays.</p></section>
+<footer>© 2026 Date & Time Calculators</footer></div><script>
+const DAY=86400000,$=x=>document.getElementById(x),D=x=>$(x).value?new Date($(x).value+"T00:00:00"):null;
+function go(type){
+ let a,b,r=$("result"),now=new Date();
+ if(type==="age"){a=D("a");if(!a)return r.textContent="Please select your date of birth.";if(a>now)return r.textContent="Date cannot be in the future.";let y=now.getFullYear()-a.getFullYear(),m=now.getMonth()-a.getMonth(),d=now.getDate()-a.getDate();if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(m<0){y--;m+=12}r.textContent=`${y} years, ${m} months, ${d} days`;return}
+ if(type==="birthday"){a=D("a");if(!a)return r.textContent="Please select your date of birth.";let t=new Date(now.getFullYear(),now.getMonth(),now.getDate()),n=new Date(now.getFullYear(),a.getMonth(),a.getDate());if(n<t)n.setFullYear(n.getFullYear()+1);let x=Math.ceil((n-t)/DAY);r.textContent=x===0?"Happy Birthday! 🎉":`${x} days until your next birthday`;return}
+ if(type==="weekday"){a=D("a");if(!a)return r.textContent="Please select a date.";r.textContent=a.toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"});return}
+ if(type==="duration"){let x=$("a").value,z=$("b").value;if(!x||!z)return r.textContent="Please select both times.";let [h1,m1]=x.split(":").map(Number),[h2,m2]=z.split(":").map(Number),q=h2*60+m2-h1*60-m1;if(q<0)q+=1440;r.textContent=`${Math.floor(q/60)} hours ${q%60} minutes`;return}
+ if(type==="hours"){let x=$("a").value,z=$("b").value;if(!x||!z)return r.textContent="Please select both date-times.";r.textContent=`${Math.abs((new Date(z)-new Date(x))/3600000).toFixed(2)} hours`;return}
+ if(type==="add"){a=D("a");let n=parseInt($("n").value),op=parseInt($("op").value);if(!a||isNaN(n))return r.textContent="Please enter a date and number.";a.setDate(a.getDate()+n*op);r.textContent=a.toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"});return}
+ a=D("a");b=D("b");if(!a||!b)return r.textContent="Please select both dates.";let days=Math.abs(Math.round((b-a)/DAY));
+ if(type==="between")r.textContent=`${days} days`;
+ if(type==="weeks")r.textContent=`${Math.floor(days/7)} weeks ${days%7} days`;
+ if(type==="months"){let s=a<b?a:b,e=a<b?b:a,m=(e.getFullYear()-s.getFullYear())*12+e.getMonth()-s.getMonth();if(e.getDate()<s.getDate())m--;r.textContent=`${m} full months (${days} total days)`}
+ if(type==="work"){let s=a<b?new Date(a):new Date(b),e=a<b?b:a,c=0;while(s<=e){if(s.getDay()!=0&&s.getDay()!=6)c++;s.setDate(s.getDate()+1)}r.textContent=`${c} working days`}
+}
+</script></body></html>
