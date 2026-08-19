@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Age Calculator – Calculate Your Exact Age</title>
+  <meta name="description" content="Free age calculator. Enter your date of birth to calculate your exact age, total days lived, and days until your next birthday." />
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f5f7fb;
+      color:#1f2937;
+      line-height:1.6;
+    }
+    .wrap{max-width:820px;margin:0 auto;padding:20px}
+    header{text-align:center;padding:34px 10px 20px}
+    h1{margin:0 0 8px;font-size:34px}
+    .sub{color:#6b7280;margin:0}
+    .card{
+      background:#fff;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:0 8px 28px rgba(0,0,0,.07);
+      margin-bottom:20px;
+    }
+    label{display:block;font-weight:700;margin-bottom:8px}
+    input{
+      width:100%;
+      padding:14px;
+      font-size:17px;
+      border:1px solid #d1d5db;
+      border-radius:12px;
+      outline:none;
+    }
+    input:focus{border-color:#2563eb}
+    button{
+      width:100%;
+      margin-top:14px;
+      padding:14px;
+      border:0;
+      border-radius:12px;
+      font-size:17px;
+      font-weight:700;
+      background:#2563eb;
+      color:white;
+      cursor:pointer;
+    }
+    button:hover{background:#1d4ed8}
+    .results{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:20px;
+    }
+    .result{
+      background:#f8fafc;
+      border-radius:14px;
+      padding:16px;
+      text-align:center;
+    }
+    .result strong{
+      display:block;
+      font-size:22px;
+      margin-bottom:4px;
+    }
+    .muted{color:#6b7280;font-size:14px}
+    .big{
+      margin-top:16px;
+      padding:16px;
+      border-radius:14px;
+      background:#eff6ff;
+      text-align:center;
+      font-weight:700;
+    }
+    .ad{
+      border:1px dashed #cbd5e1;
+      background:#fff;
+      color:#94a3b8;
+      border-radius:14px;
+      padding:24px;
+      text-align:center;
+      margin:20px 0;
+    }
+    h2{font-size:23px;margin-top:0}
+    ul{padding-left:20px}
+    footer{
+      text-align:center;
+      color:#94a3b8;
+      font-size:13px;
+      padding:18px 0 30px;
+    }
+    @media (max-width:650px){
+      h1{font-size:28px}
+      .results{grid-template-columns:1fr}
+      .card{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Age Calculator</h1>
+      <p class="sub">Calculate your exact age in years, months, days and more.</p>
+    </header>
+
+    <div class="card">
+      <label for="birthdate">Enter your date of birth</label>
+      <input id="birthdate" type="date" />
+      <button onclick="calculateAge()">Calculate Age</button>
+
+      <div id="output" style="display:none">
+        <div class="results">
+          <div class="result">
+            <strong id="years">0</strong>
+            <span class="muted">Years</span>
+          </div>
+          <div class="result">
+            <strong id="months">0</strong>
+            <span class="muted">Months</span>
+          </div>
+          <div class="result">
+            <strong id="days">0</strong>
+            <span class="muted">Days</span>
+          </div>
+        </div>
+
+        <div class="big" id="exactText"></div>
+
+        <div class="results">
+          <div class="result">
+            <strong id="totalDays">0</strong>
+            <span class="muted">Total days lived</span>
+          </div>
+          <div class="result">
+            <strong id="nextBirthday">0</strong>
+            <span class="muted">Days until next birthday</span>
+          </div>
+          <div class="result">
+            <strong id="birthWeekday">-</strong>
+            <span class="muted">Born on</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad">Ad space – Google AdSense can be added here after approval.</div>
+
+    <div class="card">
+      <h2>How to use this age calculator</h2>
+      <p>Select your date of birth and tap <strong>Calculate Age</strong>. The calculator will show your age in years, months and days, plus your total days lived and the number of days until your next birthday.</p>
+    </div>
+
+    <div class="card">
+      <h2>More calculators you can add later</h2>
+      <ul>
+        <li>Days Between Dates</li>
+        <li>Birthday Countdown</li>
+        <li>Working Days Calculator</li>
+        <li>Time Duration Calculator</li>
+        <li>Weeks Between Dates</li>
+      </ul>
+    </div>
+
+    <footer>© 2026 Age Calculator. Free online calculator.</footer>
+  </div>
+
+<script>
+function calculateAge(){
+  const input = document.getElementById('birthdate').value;
+  if(!input){
+    alert('Please select your date of birth.');
+    return;
+  }
+
+  const birth = new Date(input + 'T00:00:00');
+  const now = new Date();
+
+  if(birth > now){
+    alert('Date of birth cannot be in the future.');
+    return;
+  }
+
+  let years = now.getFullYear() - birth.getFullYear();
+  let months = now.getMonth() - birth.getMonth();
+  let days = now.getDate() - birth.getDate();
+
+  if(days < 0){
+    months--;
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+
+  if(months < 0){
+    years--;
+    months += 12;
+  }
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const totalDays = Math.floor((todayStart - birth) / msPerDay);
+
+  let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
+  if(next < todayStart){
+    next = new Date(now.getFullYear() + 1, birth.getMonth(), birth.getDate());
+  }
+  const nextBirthdayDays = Math.ceil((next - todayStart) / msPerDay);
+
+  const weekday = birth.toLocaleDateString('en-US', {weekday:'long'});
+
+  document.getElementById('years').textContent = years;
+  document.getElementById('months').textContent = months;
+  document.getElementById('days').textContent = days;
+  document.getElementById('totalDays').textContent = totalDays.toLocaleString();
+  document.getElementById('nextBirthday').textContent = nextBirthdayDays;
+  document.getElementById('birthWeekday').textContent = weekday;
+  document.getElementById('exactText').textContent =
+    `You are ${years} years, ${months} months and ${days} days old.`;
+
+  document.getElementById('output').style.display = 'block';
+}
+</script>
+</body>
+</html>
