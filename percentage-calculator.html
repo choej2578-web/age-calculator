@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator | Calculate Percent, Increase & Decrease</title>
+  <meta name="description" content="Free online percentage calculator. Calculate what percent one number is of another, find a percentage of a number, and calculate percentage increase or decrease instantly." />
+  <meta name="keywords" content="percentage calculator, percent calculator, percentage increase calculator, percentage decrease calculator, calculate percentage" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://choej2578-web.github.io/age-calculator/percentage-calculator.html" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0;
+      color: #6b7280;
+    }
+    main {
+      width: min(920px, 92%);
+      margin: 30px auto;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cfd4dc;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79,70,229,0.10);
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #4f46e5;
+      color: white;
+    }
+    button:hover { opacity: 0.92; }
+    .result {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      font-weight: 700;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .info h2 { margin-bottom: 8px; }
+    .info p { margin-top: 6px; color: #4b5563; }
+    footer {
+      text-align: center;
+      padding: 28px 15px 36px;
+      color: #6b7280;
+      font-size: .92rem;
+    }
+    @media (max-width: 650px) {
+      .row { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.6rem; }
+      .card { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Percentage Calculator</h1>
+    <p>Calculate percentages, percentage change, increase, and decrease instantly.</p>
+  </header>
+
+  <main>
+    <a class="home-link" href="./">← Back to Home</a>
+
+    <section class="card">
+      <h2>1. What is X% of Y?</h2>
+      <div class="row">
+        <div>
+          <label for="percent1">Percentage (%)</label>
+          <input id="percent1" type="number" step="any" placeholder="Example: 20" />
+        </div>
+        <div>
+          <label for="number1">Number</label>
+          <input id="number1" type="number" step="any" placeholder="Example: 150" />
+        </div>
+      </div>
+      <button onclick="calcPercentOf()">Calculate</button>
+      <div class="result" id="result1">Result will appear here.</div>
+    </section>
+
+    <section class="card">
+      <h2>2. X is what percent of Y?</h2>
+      <div class="row">
+        <div>
+          <label for="part">X</label>
+          <input id="part" type="number" step="any" placeholder="Example: 30" />
+        </div>
+        <div>
+          <label for="whole">Y</label>
+          <input id="whole" type="number" step="any" placeholder="Example: 120" />
+        </div>
+      </div>
+      <button onclick="calcWhatPercent()">Calculate</button>
+      <div class="result" id="result2">Result will appear here.</div>
+    </section>
+
+    <section class="card">
+      <h2>3. Percentage Increase / Decrease</h2>
+      <div class="row">
+        <div>
+          <label for="oldValue">Original value</label>
+          <input id="oldValue" type="number" step="any" placeholder="Example: 80" />
+        </div>
+        <div>
+          <label for="newValue">New value</label>
+          <input id="newValue" type="number" step="any" placeholder="Example: 100" />
+        </div>
+      </div>
+      <button onclick="calcChange()">Calculate</button>
+      <div class="result" id="result3">Result will appear here.</div>
+    </section>
+
+    <section class="card">
+      <h2>4. Increase or Decrease a Number by a Percentage</h2>
+      <div class="row">
+        <div>
+          <label for="baseValue">Starting number</label>
+          <input id="baseValue" type="number" step="any" placeholder="Example: 200" />
+        </div>
+        <div>
+          <label for="changePercent">Percentage (%)</label>
+          <input id="changePercent" type="number" step="any" placeholder="Example: 15" />
+        </div>
+      </div>
+      <button onclick="adjustValue('increase')">Increase</button>
+      <button onclick="adjustValue('decrease')" style="margin-left:8px;">Decrease</button>
+      <div class="result" id="result4">Result will appear here.</div>
+    </section>
+
+    <section class="card info">
+      <h2>How to Calculate a Percentage</h2>
+      <p>To find a percentage of a number, multiply the number by the percentage and divide by 100.</p>
+      <p><strong>Example:</strong> 20% of 150 = 150 × 20 ÷ 100 = 30.</p>
+
+      <h2>How to Calculate Percentage Change</h2>
+      <p>Percentage change = (New Value − Original Value) ÷ Original Value × 100.</p>
+      <p>This calculator automatically tells you whether the result is an increase or a decrease.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Free Calculator Tools
+  </footer>
+
+  <script>
+    function n(id) {
+      return parseFloat(document.getElementById(id).value);
+    }
+
+    function clean(value) {
+      return Number(value.toFixed(10)).toLocaleString(undefined, {
+        maximumFractionDigits: 10
+      });
+    }
+
+    function calcPercentOf() {
+      const p = n('percent1');
+      const y = n('number1');
+      const out = document.getElementById('result1');
+
+      if (Number.isNaN(p) || Number.isNaN(y)) {
+        out.textContent = 'Please enter both numbers.';
+        return;
+      }
+
+      const result = (p / 100) * y;
+      out.textContent = `${clean(p)}% of ${clean(y)} = ${clean(result)}`;
+    }
+
+    function calcWhatPercent() {
+      const x = n('part');
+      const y = n('whole');
+      const out = document.getElementById('result2');
+
+      if (Number.isNaN(x) || Number.isNaN(y)) {
+        out.textContent = 'Please enter both numbers.';
+        return;
+      }
+
+      if (y === 0) {
+        out.textContent = 'Y cannot be 0.';
+        return;
+      }
+
+      const result = (x / y) * 100;
+      out.textContent = `${clean(x)} is ${clean(result)}% of ${clean(y)}`;
+    }
+
+    function calcChange() {
+      const oldVal = n('oldValue');
+      const newVal = n('newValue');
+      const out = document.getElementById('result3');
+
+      if (Number.isNaN(oldVal) || Number.isNaN(newVal)) {
+        out.textContent = 'Please enter both numbers.';
+        return;
+      }
+
+      if (oldVal === 0) {
+        out.textContent = 'Original value cannot be 0.';
+        return;
+      }
+
+      const change = ((newVal - oldVal) / Math.abs(oldVal)) * 100;
+      const type = change > 0 ? 'increase' : change < 0 ? 'decrease' : 'no change';
+
+      out.textContent = change === 0
+        ? 'There is no percentage change.'
+        : `${clean(Math.abs(change))}% ${type}`;
+    }
+
+    function adjustValue(type) {
+      const base = n('baseValue');
+      const p = n('changePercent');
+      const out = document.getElementById('result4');
+
+      if (Number.isNaN(base) || Number.isNaN(p)) {
+        out.textContent = 'Please enter both numbers.';
+        return;
+      }
+
+      const result = type === 'increase'
+        ? base * (1 + p / 100)
+        : base * (1 - p / 100);
+
+      out.textContent = `${type === 'increase' ? 'Increased' : 'Decreased'} value = ${clean(result)}`;
+    }
+  </script>
+</body>
+</html>
