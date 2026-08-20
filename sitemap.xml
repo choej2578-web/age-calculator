@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://choej2578-web.github.io/age-calculator/</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/age-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/days-between-dates.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/birthday-countdown.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/working-days-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/time-duration-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/weeks-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/date-add-subtract.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/hours-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/months-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/day-of-week-calculator.html</loc></url>
-  <url><loc>https://choej2578-web.github.io/age-calculator/percentage-calculator.html</loc></url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/age-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/birthday-countdown.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/date-add-subtract.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/day-of-week-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/days-between-dates.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/hours-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/months-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/time-duration-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/weeks-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/working-days-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/percentage-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/discount-calculator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://choej2578-web.github.io/age-calculator/salary-calculator.html</loc>
+  </url>
+
 </urlset>
