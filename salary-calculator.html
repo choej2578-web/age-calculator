@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salary Calculator | Hourly, Weekly, Monthly & Annual Pay</title>
+  <meta name="description" content="Free salary calculator to convert hourly pay into weekly, monthly, and annual income. Also calculate hourly pay from an annual salary." />
+  <meta name="keywords" content="salary calculator, hourly to salary calculator, annual salary calculator, monthly salary calculator, weekly pay calculator" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://choej2578-web.github.io/age-calculator/salary-calculator.html" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 24px 18px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0;
+      color: #6b7280;
+    }
+    main {
+      width: min(920px, 92%);
+      margin: 30px auto;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cfd4dc;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+    }
+    button:hover { opacity: .92; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .result-box {
+      background: #f3f4f6;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .result-box span {
+      display: block;
+      color: #6b7280;
+      font-size: .9rem;
+      margin-bottom: 5px;
+    }
+    .result-box strong {
+      font-size: 1.15rem;
+    }
+    .message {
+      margin-top: 14px;
+      color: #b91c1c;
+      font-weight: 700;
+      min-height: 24px;
+    }
+    .info p {
+      color: #4b5563;
+      margin-top: 6px;
+    }
+    footer {
+      text-align: center;
+      padding: 28px 15px 36px;
+      color: #6b7280;
+      font-size: .92rem;
+    }
+    @media (max-width: 760px) {
+      .row, .result-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.6rem; }
+      .card { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Salary Calculator</h1>
+    <p>Convert hourly pay into weekly, monthly, and annual salary instantly.</p>
+  </header>
+
+  <main>
+    <a class="home-link" href="./">← Back to Home</a>
+
+    <section class="card">
+      <h2>Hourly Pay to Salary</h2>
+
+      <div class="row">
+        <div>
+          <label for="hourlyRate">Hourly Rate</label>
+          <input id="hourlyRate" type="number" min="0" step="any" placeholder="Example: 25" />
+        </div>
+
+        <div>
+          <label for="hoursPerWeek">Hours per Week</label>
+          <input id="hoursPerWeek" type="number" min="0" step="any" value="40" />
+        </div>
+
+        <div>
+          <label for="weeksPerYear">Weeks per Year</label>
+          <input id="weeksPerYear" type="number" min="0" step="any" value="52" />
+        </div>
+      </div>
+
+      <button onclick="calculateFromHourly()">Calculate</button>
+      <div class="message" id="hourlyMessage"></div>
+
+      <div class="result-grid">
+        <div class="result-box">
+          <span>Weekly Pay</span>
+          <strong id="weeklyPay">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Monthly Pay</span>
+          <strong id="monthlyPay">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Annual Pay</span>
+          <strong id="annualPay">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Daily Pay</span>
+          <strong id="dailyPay">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Annual Salary to Hourly Pay</h2>
+
+      <div class="row">
+        <div>
+          <label for="annualSalary">Annual Salary</label>
+          <input id="annualSalary" type="number" min="0" step="any" placeholder="Example: 52000" />
+        </div>
+
+        <div>
+          <label for="hoursPerWeek2">Hours per Week</label>
+          <input id="hoursPerWeek2" type="number" min="0" step="any" value="40" />
+        </div>
+
+        <div>
+          <label for="weeksPerYear2">Weeks per Year</label>
+          <input id="weeksPerYear2" type="number" min="0" step="any" value="52" />
+        </div>
+      </div>
+
+      <button onclick="calculateFromAnnual()">Calculate</button>
+      <div class="message" id="annualMessage"></div>
+
+      <div class="result-grid">
+        <div class="result-box">
+          <span>Hourly Pay</span>
+          <strong id="hourlyPayResult">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Weekly Pay</span>
+          <strong id="weeklyPay2">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Monthly Pay</span>
+          <strong id="monthlyPay2">0</strong>
+        </div>
+        <div class="result-box">
+          <span>Annual Pay</span>
+          <strong id="annualPay2">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card info">
+      <h2>How This Salary Calculator Works</h2>
+      <p>Annual salary = Hourly Rate × Hours per Week × Weeks per Year.</p>
+      <p>Monthly salary is estimated by dividing annual salary by 12.</p>
+      <p>Daily pay is estimated using a 5-day workweek.</p>
+      <p>This calculator estimates gross pay before taxes, deductions, bonuses, and benefits.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Free Online Calculators</footer>
+
+  <script>
+    function fmt(value) {
+      return Number(value.toFixed(2)).toLocaleString(undefined, {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function calculateFromHourly() {
+      const hourly = parseFloat(document.getElementById('hourlyRate').value);
+      const hours = parseFloat(document.getElementById('hoursPerWeek').value);
+      const weeks = parseFloat(document.getElementById('weeksPerYear').value);
+      const msg = document.getElementById('hourlyMessage');
+
+      if ([hourly, hours, weeks].some(Number.isNaN) || hourly < 0 || hours <= 0 || weeks <= 0) {
+        msg.textContent = 'Please enter valid positive numbers.';
+        return;
+      }
+
+      msg.textContent = '';
+
+      const weekly = hourly * hours;
+      const annual = weekly * weeks;
+      const monthly = annual / 12;
+      const daily = weekly / 5;
+
+      document.getElementById('weeklyPay').textContent = fmt(weekly);
+      document.getElementById('monthlyPay').textContent = fmt(monthly);
+      document.getElementById('annualPay').textContent = fmt(annual);
+      document.getElementById('dailyPay').textContent = fmt(daily);
+    }
+
+    function calculateFromAnnual() {
+      const annual = parseFloat(document.getElementById('annualSalary').value);
+      const hours = parseFloat(document.getElementById('hoursPerWeek2').value);
+      const weeks = parseFloat(document.getElementById('weeksPerYear2').value);
+      const msg = document.getElementById('annualMessage');
+
+      if ([annual, hours, weeks].some(Number.isNaN) || annual < 0 || hours <= 0 || weeks <= 0) {
+        msg.textContent = 'Please enter valid positive numbers.';
+        return;
+      }
+
+      msg.textContent = '';
+
+      const hourly = annual / (hours * weeks);
+      const weekly = annual / weeks;
+      const monthly = annual / 12;
+
+      document.getElementById('hourlyPayResult').textContent = fmt(hourly);
+      document.getElementById('weeklyPay2').textContent = fmt(weekly);
+      document.getElementById('monthlyPay2').textContent = fmt(monthly);
+      document.getElementById('annualPay2').textContent = fmt(annual);
+    }
+  </script>
+</body>
+</html>
