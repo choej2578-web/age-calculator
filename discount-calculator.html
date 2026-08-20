@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discount Calculator | Sale Price & Savings Calculator</title>
+  <meta name="description" content="Free discount calculator. Enter the original price and discount percentage to instantly calculate the sale price, amount saved, and final price." />
+  <meta name="keywords" content="discount calculator, sale price calculator, savings calculator, percent off calculator, final price calculator" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://choej2578-web.github.io/age-calculator/discount-calculator.html" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 24px 18px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0;
+      color: #6b7280;
+    }
+    main {
+      width: min(900px, 92%);
+      margin: 30px auto;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cfd4dc;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #2563eb;
+      color: #ffffff;
+    }
+    button:hover { opacity: 0.92; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .result-box {
+      background: #f3f4f6;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .result-box span {
+      display: block;
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .result-box strong {
+      font-size: 1.25rem;
+    }
+    .message {
+      margin-top: 14px;
+      color: #b91c1c;
+      font-weight: 700;
+      min-height: 24px;
+    }
+    .info p {
+      color: #4b5563;
+      margin-top: 6px;
+    }
+    footer {
+      text-align: center;
+      padding: 28px 15px 36px;
+      color: #6b7280;
+      font-size: .92rem;
+    }
+    @media (max-width: 650px) {
+      .row, .result-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.6rem; }
+      .card { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Discount Calculator</h1>
+    <p>Calculate sale price, discount amount, and total savings instantly.</p>
+  </header>
+
+  <main>
+    <a class="home-link" href="./">← Back to Home</a>
+
+    <section class="card">
+      <h2>Calculate Your Discount</h2>
+
+      <div class="row">
+        <div>
+          <label for="originalPrice">Original Price</label>
+          <input id="originalPrice" type="number" step="any" min="0" placeholder="Example: 100" />
+        </div>
+
+        <div>
+          <label for="discountPercent">Discount (%)</label>
+          <input id="discountPercent" type="number" step="any" min="0" placeholder="Example: 25" />
+        </div>
+      </div>
+
+      <button onclick="calculateDiscount()">Calculate</button>
+
+      <div class="message" id="message"></div>
+
+      <div class="result-grid">
+        <div class="result-box">
+          <span>You Save</span>
+          <strong id="savings">0</strong>
+        </div>
+
+        <div class="result-box">
+          <span>Final Price</span>
+          <strong id="finalPrice">0</strong>
+        </div>
+
+        <div class="result-box">
+          <span>Discount</span>
+          <strong id="discountResult">0%</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Extra Discount Calculator</h2>
+      <p>If an item is already discounted and gets another discount, enter both percentages below.</p>
+
+      <div class="row">
+        <div>
+          <label for="firstDiscount">First Discount (%)</label>
+          <input id="firstDiscount" type="number" step="any" min="0" placeholder="Example: 20" />
+        </div>
+
+        <div>
+          <label for="secondDiscount">Second Discount (%)</label>
+          <input id="secondDiscount" type="number" step="any" min="0" placeholder="Example: 10" />
+        </div>
+      </div>
+
+      <button onclick="calculateCombinedDiscount()">Calculate</button>
+      <div class="result-box" style="margin-top:16px;">
+        <span>Total Effective Discount</span>
+        <strong id="combinedDiscount">0%</strong>
+      </div>
+    </section>
+
+    <section class="card info">
+      <h2>How to Calculate a Discount</h2>
+      <p>Discount amount = Original Price × Discount Percentage ÷ 100.</p>
+      <p>Final price = Original Price − Discount Amount.</p>
+      <p><strong>Example:</strong> A $100 item with a 25% discount saves $25, so the final price is $75.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Free Online Calculators
+  </footer>
+
+  <script>
+    function formatNumber(value) {
+      return Number(value.toFixed(2)).toLocaleString(undefined, {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function calculateDiscount() {
+      const price = parseFloat(document.getElementById('originalPrice').value);
+      const discount = parseFloat(document.getElementById('discountPercent').value);
+
+      const message = document.getElementById('message');
+      const savings = document.getElementById('savings');
+      const finalPrice = document.getElementById('finalPrice');
+      const discountResult = document.getElementById('discountResult');
+
+      if (Number.isNaN(price) || Number.isNaN(discount)) {
+        message.textContent = 'Please enter the original price and discount percentage.';
+        return;
+      }
+
+      if (price < 0 || discount < 0) {
+        message.textContent = 'Please enter positive numbers.';
+        return;
+      }
+
+      message.textContent = '';
+
+      const saved = price * (discount / 100);
+      const final = price - saved;
+
+      savings.textContent = formatNumber(saved);
+      finalPrice.textContent = formatNumber(final);
+      discountResult.textContent = formatNumber(discount) + '%';
+    }
+
+    function calculateCombinedDiscount() {
+      const first = parseFloat(document.getElementById('firstDiscount').value);
+      const second = parseFloat(document.getElementById('secondDiscount').value);
+      const out = document.getElementById('combinedDiscount');
+
+      if (Number.isNaN(first) || Number.isNaN(second) || first < 0 || second < 0) {
+        out.textContent = 'Enter valid percentages';
+        return;
+      }
+
+      const combined = 100 * (1 - (1 - first / 100) * (1 - second / 100));
+      out.textContent = formatNumber(combined) + '%';
+    }
+  </script>
+</body>
+</html>
